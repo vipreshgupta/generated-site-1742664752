@@ -1,0 +1,530 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delhi Shoe Store</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .dark-theme {
+            background-color: #333;
+            color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .dark-theme button {
+            background-color: #0056b3;
+        }
+        .dark-theme button:hover {
+            background-color: #003380;
+        }
+
+        /* Header */
+        header {
+            background: #fff;
+            color: #333;
+            padding-top: 20px;
+            min-height: 70px;
+            border-bottom: #007bff 3px solid;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .dark-theme header {
+            background: #444;
+            color: #f4f4f4;
+            border-bottom: #0056b3 3px solid;
+        }
+        header h1 {
+            margin: 0;
+            padding: 0;
+            color: #007bff;
+        }
+        .dark-theme header h1 {
+            color: #0056b3;
+        }
+        #theme-toggle {
+            background: none;
+            color: #007bff;
+            font-size: 20px;
+            border: none;
+        }
+        .dark-theme #theme-toggle {
+            color: #0056b3;
+        }
+
+        /* Navigation */
+        nav {
+            float: left;
+            margin-top: 10px;
+        }
+        nav ul {
+            padding: 0;
+            list-style: none;
+        }
+        nav li {
+            display: inline;
+            margin-right: 20px;
+        }
+        nav a {
+            color: #333;
+            font-weight: bold;
+        }
+        .dark-theme nav a {
+            color: #f4f4f4;
+        }
+        nav a:hover {
+            color: #007bff;
+        }
+
+        /* Hero Section */
+        #hero {
+            background: url('https://source.unsplash.com/1600x900/?shoes') no-repeat center center/cover;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            text-align: center;
+        }
+        #hero h2 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        /* Product Catalog */
+        #products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px 0;
+        }
+        .product {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+            background-color: #fff;
+            transition: transform 0.3s;
+        }
+        .dark-theme .product {
+            background-color: #444;
+            border-color: #666;
+        }
+        .product:hover {
+            transform: translateY(-5px);
+        }
+        .product img {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+        .product h3 {
+            margin: 0;
+            color: #333;
+        }
+        .dark-theme .product h3 {
+            color: #f4f4f4;
+        }
+        .product p {
+            color: #666;
+            margin: 5px 0;
+        }
+        .dark-theme .product p {
+            color: #ddd;
+        }
+        .size-options {
+            margin-bottom: 10px;
+        }
+        .size-options select {
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        /* Cart */
+        #cart {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background-color: #fff;
+            border-left: 1px solid #ddd;
+            padding: 20px;
+            box-shadow: -2px 0 5px rgba(0,0,0,0.2);
+            transition: right 0.3s;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        #cart.open {
+            right: 0;
+        }
+        .dark-theme #cart {
+            background-color: #444;
+            border-left-color: #666;
+        }
+        #cart-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+        }
+        #cart h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        .dark-theme #cart h2 {
+            color: #f4f4f4;
+        }
+        .cart-item {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .dark-theme .cart-item {
+            border-bottom-color: #666;
+        }
+        .cart-item img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+        .cart-item-info {
+            flex-grow: 1;
+        }
+        .cart-item-info p {
+            margin: 0;
+            color: #666;
+        }
+        .dark-theme .cart-item-info p {
+            color: #ddd;
+        }
+        .cart-item button {
+            background-color: #dc3545;
+        }
+        .cart-item button:hover {
+            background-color: #c82333;
+        }
+        #cart-total {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+        .dark-theme #cart-total {
+            color: #f4f4f4;
+        }
+        #checkout-btn {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        /* Reviews */
+        #reviews {
+            padding: 20px 0;
+        }
+        #reviews h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .dark-theme #reviews h2 {
+            color: #f4f4f4;
+        }
+        .review {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #fff;
+        }
+        .dark-theme .review {
+            background-color: #444;
+            border-color: #666;
+        }
+        .review h4 {
+            margin: 0;
+            color: #333;
+        }
+        .dark-theme .review h4 {
+            color: #f4f4f4;
+        }
+        .review p {
+            color: #666;
+            margin: 5px 0;
+        }
+        .dark-theme .review p {
+            color: #ddd;
+        }
+        .review-form {
+            margin-top: 20px;
+        }
+        .review-form textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 20px;
+        }
+        .dark-theme footer {
+            background: #222;
+        }
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Delhi Shoe Store</h1>
+            <button id="theme-toggle" aria-label="Toggle Dark Theme">🌙</button>
+            <button id="cart-toggle" aria-label="Open Cart">🛒</button>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="#">Men</a></li>
+                <li><a href="#">Women</a></li>
+                <li><a href="#">Kids</a></li>
+                <li><a href="#">Sports</a></li>
+                <li><a href="#">Formal</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="hero">
+        <div class="container">
+            <h2>Find Your Perfect Pair</h2>
+            <button>Shop Now</button>
+        </div>
+    </section>
+
+    <section id="products" class="container">
+        <!-- Product 1 -->
+        <div class="product">
+            <img src="https://source.unsplash.com/300x200/?shoe,men" alt="Men's Shoe">
+            <h3>Men's Running Shoe</h3>
+            <p>$79.99</p>
+            <div class="size-options">
+                <select>
+                    <option>Select Size</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                    <option>10</option>
+                    <option>11</option>
+                </select>
+            </div>
+            <button class="add-to-cart" data-id="1" data-name="Men's Running Shoe" data-price="79.99" data-image="https://source.unsplash.com/300x200/?shoe,men">Add to Cart</button>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product">
+            <img src="https://source.unsplash.com/300x200/?shoe,women" alt="Women's Shoe">
+            <h3>Women's Casual Shoe</h3>
+            <p>$69.99</p>
+            <div class="size-options">
+                <select>
+                    <option>Select Size</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                </select>
+            </div>
+            <button class="add-to-cart" data-id="2" data-name="Women's Casual Shoe" data-price="69.99" data-image="https://source.unsplash.com/300x200/?shoe,women">Add to Cart</button>
+        </div>
+      <!-- Product 3 -->
+        <div class="product">
+            <img src="https://source.unsplash.com/300x200/?shoe,sports" alt="Sports Shoe">
+            <h3>Sports Shoe</h3>
+            <p>$89.99</p>
+            <div class="size-options">
+                <select>
+                    <option>Select Size</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                </select>
+            </div>
+            <button class="add-to-cart" data-id="3" data-name="Sports Shoe" data-price="89.99" data-image="https://source.unsplash.com/300x200/?shoe,sports">Add to Cart</button>
+        </div>
+      <!-- Product 4 -->
+        <div class="product">
+            <img src="https://source.unsplash.com/300x200/?shoe,formal" alt="Formal Shoe">
+            <h3>Formal Shoe</h3>
+            <p>$99.99</p>
+            <div class="size-options">
+                <select>
+                    <option>Select Size</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                </select>
+            </div>
+            <button class="add-to-cart" data-id="4" data-name="Formal Shoe" data-price="99.99" data-image="https://source.unsplash.com/300x200/?shoe,formal">Add to Cart</button>
+        </div>
+    </section>
+
+    <section id="cart">
+        <h2>Your Cart</h2>
+        <div id="cart-items">
+            <!-- Cart items will be added here -->
+        </div>
+        <p id="cart-total">Total: $0.00</p>
+        <button id="checkout-btn">Checkout</button>
+    </section>
+
+    <section id="reviews" class="container">
+        <h2>Customer Reviews</h2>
+        <div class="review">
+            <h4>John Doe</h4>
+            <p>Great shoes! Very comfortable and stylish.</p>
+        </div>
+        <div class="review">
+            <h4>Jane Smith</h4>
+            <p>Excellent quality and fast delivery.</p>
+        </div>
+        <div class="review-form">
+            <h3>Leave a Review</h3>
+            <textarea placeholder="Write your review here..."></textarea>
+            <button>Submit Review</button>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Delhi Shoe Store. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            themeToggle.textContent = document.body.classList.contains('dark-theme') ? '☀️' : '🌙';
+        });
+
+        // Cart Toggle
+        const cartToggle = document.getElementById('cart-toggle');
+        const cart = document.getElementById('cart');
+        cartToggle.addEventListener('click', () => {
+            cart.classList.toggle('open');
+        });
+
+        // Add to Cart Functionality
+        let cartItems = [];
+
+        function updateCartDisplay() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            cartItemsContainer.innerHTML = '';
+            let total = 0;
+
+            cartItems.forEach(item => {
+                const cartItem = document.createElement('div');
+                cartItem.classList.add('cart-item');
+                cartItem.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="cart-item-info">
+                        <p>${item.name}</p>
+                        <p>Size: ${item.size}, Price: $${item.price}</p>
+                    </div>
+                    <button class="remove-from-cart" data-id="${item.id}">Remove</button>
+                `;
+                cartItemsContainer.appendChild(cartItem);
+                total += parseFloat(item.price);
+            });
+
+            document.getElementById('cart-total').textContent = `Total: $${total.toFixed(2)}`;
+
+            // Attach event listeners to remove buttons
+            document.querySelectorAll('.remove-from-cart').forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const itemId = event.target.dataset.id;
+                    cartItems = cartItems.filter(item => item.id !== itemId);
+                    updateCartDisplay();
+                });
+            });
+        }
+
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', (event) => {
+                const product = event.target.dataset;
+                const size = event.target.previousElementSibling.value;
+                if (size === 'Select Size') {
+                    alert('Please select a size.');
+                    return;
+                }
+                cartItems.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                    size: size
+                });
+                updateCartDisplay();
+                cart.classList.add('open');
+            });
+        });
+      
+// Checkout 
+      document.getElementById('checkout-btn').addEventListener('click', () => {
+    if (cartItems.length === 0) {
+        alert('Your cart is empty.');
+    } else {
+        alert('Thank you for your purchase!');
+        cartItems = []; // Clear the cart
+        updateCartDisplay(); // Update the cart display
+        cart.classList.remove('open'); // Close the cart
+    }
+});
+    </script>
+</body>
+</html>
